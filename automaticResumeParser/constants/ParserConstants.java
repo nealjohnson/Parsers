@@ -5,23 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
-import automaticResumeParser.entity.AddressVsetEntity;
-import automaticResumeParser.entity.BasicProfEdEntity;
-import automaticResumeParser.entity.CastVSetEntity;
-import automaticResumeParser.entity.MastersProfEducationEntity;
-import automaticResumeParser.entity.PFSkillsVsetEntity;
-import automaticResumeParser.entity.VerbSetEntity;
 
 public class ParserConstants {
 
