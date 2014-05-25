@@ -36,8 +36,8 @@ public class ParserConstants {
 		try {
 			BufferedReader bf = new BufferedReader(
 					(new FileReader(
-							new File(
-									"E:\\ResumeParser_2014\\property files\\SortedSurnames.txt"))));
+							new File(System.getProperty("user.dir")+
+									"\\property files\\SortedSurnames.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				line = bf.readLine();
@@ -61,7 +61,7 @@ public class ParserConstants {
 			BufferedReader bf = new BufferedReader(
 					(new FileReader(
 							new File(
-									"E:\\ResumeParser_2014\\property files\\SortedNamescomposite.txt"))));
+									System.getProperty("user.dir")+"\\property files\\SortedNamescomposite.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				names.add(line);
