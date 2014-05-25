@@ -2,7 +2,6 @@ package automaticResumeParser.utilities;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,18 +12,12 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-
-import automaticResumeParser.constants.ParserConstants;
-import automaticResumeParser.entity.ProfEdYearInstituteEntity;
-import automaticResumeParser.entity.ResumeSaveEntity;
 
 public class Utilities {
 
