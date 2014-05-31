@@ -15,13 +15,12 @@ import automaticResumeParser.utilities.Utilities;
 public class ParseNameService {
 
 	/**
-	 * @throws ParserException ************************************************************************************************************************/
+	 * @throws ParserException
+	 ************************************************************************************************************************/
 	public ResumeSaveEntity parseName(List<String> list,
 			ResumeSaveEntity resumeSaveEntity) throws ParserException {
 		System.out.println(System.getProperty("user.dir"));
-		ParserConstants.loadNames();
-		ParserConstants.loadSurnames();
-		Set<String> allNames = ParserConstants.getAllnames();
+	//	Set<String> allNames = ParserConstants.getAllnames();
 		Set<Integer> misLeadWordsSet = misleadWordsPosition(list);
 		// HashMap<String, Integer> nameMap1 = nameRegexIdentifier(list);
 		HashMap<String, Integer> nameMap = nameSurnameIdentifier(list);
@@ -30,7 +29,6 @@ public class ParseNameService {
 		// nameSet.retainAll(allNames); // intersection of two sets
 
 		// Reject the names which comes under the misleading words------- Start
-		// //
 		Iterator<String> nameIterator = nameSet.iterator();
 		while (nameIterator.hasNext()) {
 
@@ -49,6 +47,8 @@ public class ParseNameService {
 		System.out.println(nameSet);
 		return resumeSaveEntity;
 	}
+
+
 
 	/**************************************************************************************************************************/
 
@@ -78,17 +78,19 @@ public class ParseNameService {
 	}
 
 	/**
-	 * @throws ParserException 
-	 * @throws IOException ************************************************************************************************************************/
+	 * @throws ParserException
+	 * @throws IOException
+	 ************************************************************************************************************************/
 
-	private HashMap<String, Integer> nameSurnameIdentifier(List<String> list) throws ParserException {
+	private HashMap<String, Integer> nameSurnameIdentifier(List<String> list)
+			throws ParserException {
 
 		HashMap<String, Integer> nameMap = new HashMap<String, Integer>();
 		HashSet<String> surnameSet = ParserConstants.getSurnames();
 		for (int i = 0; i < list.size(); i++) {
 			String val = list.get(i);
-			String name = "";
-			if (val.trim().length()>0 &&  surnameSet.contains(val)
+			String name = "";			
+			if (val.trim().length() > 0 && surnameSet.contains(val)
 					|| surnameSet.contains(Utilities.properCase(val))
 					|| surnameSet.contains(val.toUpperCase())
 					|| surnameSet.contains(val.toLowerCase())) {
@@ -113,18 +115,15 @@ public class ParseNameService {
 	}
 
 	/**
-	 * @throws ParserException 
+	 * @throws ParserException
 	 * @throws IOException
 	 **********************************************************************************************************************************/
 
 	private boolean isEnglishWord(String val) throws ParserException {
-try {
-		Set<String> wordSet = Utilities.englishWords();
-		return wordSet.contains(val.toUpperCase());
-}catch(IOException e)
-{
-	throw new ParserException("","Unable to fetch the English Words  File");
-}
+		
+			Set<String> wordSet = ParserConstants.getEnglishWords();// Utilities.englishWords();
+			return wordSet.contains(val.toUpperCase());
+		
 	}
 
 	/************************************************************************************************************************************/
@@ -144,7 +143,5 @@ try {
 		}
 		return misleadWordsPosition;
 	}
-
-	/************************************************************************************************************************************/
 
 }
