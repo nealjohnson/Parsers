@@ -86,9 +86,9 @@ public class ParserConstants {
 				if (line.trim().length() != 0) {
 					englishWords.addAll(Utilities.pastForm(line));
 					englishWords.add(line);
-					line = bf.readLine();
+					
 				}
-
+				line = bf.readLine();
 			}
 			return englishWords;
 
