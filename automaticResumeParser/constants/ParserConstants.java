@@ -8,17 +8,17 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import automaticResumeParser.utilities.Utilities;
+
 public class ParserConstants {
 
 	public static HashSet<String> surnames;
-	public static HashSet<String> nameMislead;
 	public static HashSet<String> names;
-	
+	private static HashSet<String> englishWords;
+	public static HashSet<String> nameMislead=new HashSet<>();
+
+
 	static {
-		surnames=new HashSet<>();
-		names=new HashSet<>();
-			
-		nameMislead = new HashSet<String>();
 		nameMislead.add("Father's");
 		nameMislead.add("Fathers");
 		nameMislead.add("Father");
@@ -31,19 +31,18 @@ public class ParserConstants {
 
 	}
 
-	public static HashSet<String> loadSurnames()
-	{
+	public static HashSet<String> loadSurnames() {
 		try {
-			BufferedReader bf = new BufferedReader(
-					(new FileReader(
-							new File(System.getProperty("user.dir")+
-									"\\property files\\SortedSurnames.prs"))));
+			surnames=new HashSet<>();
+			BufferedReader bf = new BufferedReader((new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\SortedSurnames.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				line = bf.readLine();
 				surnames.add(line);
 			}
-			
+
 			return surnames;
 
 		} catch (FileNotFoundException e) {
@@ -53,22 +52,19 @@ public class ParserConstants {
 		}
 		return surnames;
 	}
-	
-	public static HashSet<String> loadNames()
-	{
-		
+
+	public static HashSet<String> loadNames() {
+
 		try {
-			BufferedReader bf = new BufferedReader(
-					(new FileReader(
-							new File(
-									System.getProperty("user.dir")+"\\property files\\SortedNamescomposite.prs"))));
+			names=new HashSet<String>();
+			BufferedReader bf = new BufferedReader((new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\SortedNamescomposite.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				names.add(line);
 				line = bf.readLine();
 			}
-			
-			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -77,9 +73,49 @@ public class ParserConstants {
 		}
 		return names;
 	}
-	
+
+	public static Set<String> LoadEnglishWords() {
+
+		try {
+			englishWords=new HashSet<String>();
+			BufferedReader bf = new BufferedReader(new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\words.prs")));
+			String line = bf.readLine();
+			while (line != null) {
+				if (line.trim().length() != 0) {
+					englishWords.addAll(Utilities.pastForm(line));
+					englishWords.add(line);
+					line = bf.readLine();
+				}
+
+			}
+			return englishWords;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return englishWords;
+	}
+
 	public static HashSet<String> getSurnames() {
+		if (surnames != null) {
+			return surnames;
+		} else {
+			loadSurnames();
+		}
 		return surnames;
+	}
+
+	public static HashSet<String> getEnglishWords() {
+		if (englishWords != null) {
+			return englishWords;
+		} else {
+			LoadEnglishWords();
+		}
+		return englishWords;
 	}
 
 	final String[] InstituteVset = { "University", "Institute", "College",
@@ -126,14 +162,14 @@ public class ParserConstants {
 	static final String Logspath = "E:\\ResumeLogs\\";
 
 	public static Set<String> getAllnames() {
-		
+
 		return names;
 	}
 
 	public static String getPath() {
 		return "F:\\MailDownloader\\";
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public static String[] getverbSet() {
