@@ -208,20 +208,38 @@ public class Utilities {
 
 	}
 
-	/************************************************************************************************************************************/
-	public static Set<String> englishWords() throws IOException {
-		Set<String> wordsSet = new HashSet<String>();
-		BufferedReader bf = new BufferedReader(new FileReader(new File(
-				"E:\\ResumeParser_2014\\property files\\words.txt")));
-		String line = bf.readLine();
-		while (line != null) {
+	/**
+	 * @return
+	 **********************************************************************************************************************************/
 
-			if (line.trim().length() != 0) {
-				wordsSet.add(line);
+	public static Set<String> pastForm(String word) {
+		String past = "";
+		String presentContinuous = "";
+		Set<String> pastSet = new HashSet<String>();
+		String lastChar = Character.toString(word.charAt(word.length() - 1));
+		String secondlastChar = Character
+				.toString(word.charAt(word.length() - 1));
 
-			}
-			line = bf.readLine();
+		if ((lastChar.equalsIgnoreCase("e") || lastChar.equalsIgnoreCase("y") || lastChar
+				.equalsIgnoreCase("o")) && secondlastChar.equalsIgnoreCase("e")) {
+			presentContinuous = word + "ing";
+			past = word + "d";
+		} else if ((!isVowel(lastChar)) && isVowel(secondlastChar)) {
+			past = word + lastChar + "ed";
+			presentContinuous = word + lastChar + "ing";
+		} else if (lastChar.equalsIgnoreCase("e")) {
+			presentContinuous = word.subSequence(0, word.length() - 2) + "ing";
+			past = word.subSequence(0, word.length() - 1) + "d";
 		}
-		return wordsSet;
+		pastSet.add(past);
+		pastSet.add(presentContinuous);
+		return pastSet;
+	}
+
+	/************************************************************************************************************************************/
+	private static boolean isVowel(String val) {
+		return val.equalsIgnoreCase("a") || val.equalsIgnoreCase("e")
+				|| val.equalsIgnoreCase("i") || val.equalsIgnoreCase("o")
+				|| val.equalsIgnoreCase("u");
 	}
 }
