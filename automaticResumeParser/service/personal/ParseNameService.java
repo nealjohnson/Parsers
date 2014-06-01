@@ -96,7 +96,7 @@ public class ParseNameService {
 					|| surnameSet.contains(val.toLowerCase())) {
 				int j = i;
 				while (val.matches("[A-Za-z]+") && j >= 0
-						&& !(isEnglishWord(val))) {
+						&& !(isEnglishWord(val))&&!(isAPlace(val))) {
 
 					{
 						name = val + " " + name; // To maintain the space
@@ -113,6 +113,18 @@ public class ParseNameService {
 		}
 		return nameMap;
 	}
+
+	/**
+	 * @throws ParserException
+	 * @throws IOException
+	 **********************************************************************************************************************************/
+
+	private boolean isAPlace(String val) {
+		Set<String> placeSet = ParserConstants.getPlaces();// Utilities.places();
+		return placeSet.contains(val.toUpperCase());
+	}
+
+
 
 	/**
 	 * @throws ParserException
