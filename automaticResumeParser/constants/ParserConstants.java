@@ -15,113 +15,19 @@ public class ParserConstants {
 	public static HashSet<String> surnames;
 	public static HashSet<String> names;
 	private static HashSet<String> englishWords;
-	public static HashSet<String> nameMislead=new HashSet<>();
-
-
-	static {
-		nameMislead.add("Father's");
-		nameMislead.add("Fathers");
-		nameMislead.add("Father");
-		nameMislead.add("Mother's");
-		nameMislead.add("Mother");
-		nameMislead.add("Husband's");
-		nameMislead.add("C\\/o");
-		nameMislead.add("C\\/O");
-		nameMislead.add("S/O");
-
-	}
-
-	public static HashSet<String> loadSurnames() {
-		try {
-			surnames=new HashSet<>();
-			BufferedReader bf = new BufferedReader((new FileReader(new File(
-					System.getProperty("user.dir")
-							+ "\\property files\\SortedSurnames.prs"))));
-			String line = bf.readLine();
-			while (line != null) {
-				line = bf.readLine();
-				surnames.add(line);
-			}
-
-			return surnames;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return surnames;
-	}
-
-	public static HashSet<String> loadNames() {
-
-		try {
-			names=new HashSet<String>();
-			BufferedReader bf = new BufferedReader((new FileReader(new File(
-					System.getProperty("user.dir")
-							+ "\\property files\\SortedNamescomposite.prs"))));
-			String line = bf.readLine();
-			while (line != null) {
-				names.add(line);
-				line = bf.readLine();
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return names;
-	}
-
-	public static Set<String> LoadEnglishWords() {
-
-		try {
-			englishWords=new HashSet<String>();
-			BufferedReader bf = new BufferedReader(new FileReader(new File(
-					System.getProperty("user.dir")
-							+ "\\property files\\words.prs")));
-			String line = bf.readLine();
-			while (line != null) {
-				if (line.trim().length() != 0) {
-					englishWords.addAll(Utilities.pastForm(line));
-					englishWords.add(line);
-					
-				}
-				line = bf.readLine();
-			}
-			return englishWords;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return englishWords;
-	}
-
-	public static HashSet<String> getSurnames() {
-		if (surnames != null) {
-			return surnames;
-		} else {
-			loadSurnames();
-		}
-		return surnames;
-	}
-
-	public static HashSet<String> getEnglishWords() {
-		if (englishWords != null) {
-			return englishWords;
-		} else {
-			LoadEnglishWords();
-		}
-		return englishWords;
-	}
-
+	public static HashSet<String> nameMislead = new HashSet<>();
+	private static HashSet<String> places;
+	static final String[] EmailVset = { "Email Address", "Email Id",
+			"email Id", "E-mail", "e-mail", "email", "Email", "Mail" };
+	static final String[] NameVset = { "Name-", "Name:-", "Name :", "Name:",
+			"Name", "name" };
 	final String[] InstituteVset = { "University", "Institute", "College",
 			"CBSE Board", "C.B.S.E", "School", "ISC", "ICSE", "XII", "X",
 			"12th", "10th", "Vidyalaya", "university", "University", "Board",
 			"S.S.C", "H.S.C", "CBSE" };
+
+	static final String path = "F:\\MailDownloader\\";
+	static final String Logspath = "E:\\ResumeLogs\\";
 
 	final String[] CompaniesKeyWordsSet = { "Inc.", "Limited",
 			"Administrator ", "Intern ", "Internship", "Consultancy Services",
@@ -144,42 +50,197 @@ public class ParserConstants {
 	static final String[] unwantedAdressWordsList = { "Current Address",
 			"Home Address", "Permanent Address", "Address" };
 
+	/**********************************************************************************************************************************/
+	static {
+		nameMislead.add("Father's");
+		nameMislead.add("Fathers");
+		nameMislead.add("Father");
+		nameMislead.add("Mother's");
+		nameMislead.add("Mother");
+		nameMislead.add("Husband's");
+		nameMislead.add("C\\/o");
+		nameMislead.add("C\\/O");
+		nameMislead.add("S/O");
+
+	}
+
+	/**********************************************************************************************************************************/
+
+	public static HashSet<String> loadSurnames() {
+		try {
+			surnames = new HashSet<>();
+			BufferedReader bf = new BufferedReader((new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\SortedSurnames.prs"))));
+			String line = bf.readLine();
+			while (line != null) {
+				line = bf.readLine();
+				surnames.add(line);
+			}
+
+			return surnames;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return surnames;
+	}
+
+	/**********************************************************************************************************************************/
+
+	public static HashSet<String> loadNames() {
+
+		try {
+			names = new HashSet<String>();
+			BufferedReader bf = new BufferedReader((new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\SortedNamescomposite.prs"))));
+			String line = bf.readLine();
+			while (line != null) {
+				names.add(line);
+				line = bf.readLine();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return names;
+	}
+
+	/**********************************************************************************************************************************/
+
+	public static Set<String> loadEnglishWords() {
+
+		try {
+			englishWords = new HashSet<String>();
+			BufferedReader bf = new BufferedReader(new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\words.prs")));
+			String line = bf.readLine();
+			while (line != null) {
+				if (line.trim().length() != 0) {
+					englishWords.addAll(Utilities.pastForm(line));
+					englishWords.add(line);
+
+				}
+				line = bf.readLine();
+			}
+			return englishWords;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return englishWords;
+	}
+
+	/**********************************************************************************************************************************/
+	public static Set<String> loadplaces() {
+
+		try {
+			places = new HashSet<String>();
+			BufferedReader bf = new BufferedReader(new FileReader(new File(
+					System.getProperty("user.dir")
+							+ "\\property files\\Places.prs")));
+			String line = bf.readLine();
+			while (line != null) {
+				if (line.trim().length() != 0) {
+					places.addAll(Utilities.pastForm(line));
+					places.add(line);
+
+				}
+				line = bf.readLine();
+			}
+			return places;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return englishWords;
+	}
+
+	/**********************************************************************************************************************************/
+
+	
+	public static HashSet<String> getSurnames() {
+		if (surnames != null) {
+			return surnames;
+		} else {
+			loadSurnames();
+		}
+		return surnames;
+	}
+
+	/**********************************************************************************************************************************/
+
+	public static HashSet<String> getEnglishWords() {
+		if (englishWords != null) {
+			return englishWords;
+		} else {
+			loadEnglishWords();
+		}
+		return englishWords;
+	}
+
+	/**********************************************************************************************************************************/
+
 	public static String[] getUnwantedadresswordslist() {
 		return unwantedAdressWordsList;
 	}
 
-	static final String[] EmailVset = { "Email Address", "Email Id",
-			"email Id", "E-mail", "e-mail", "email", "Email", "Mail" };
-
-	static final String[] NameVset = { "Name-", "Name:-", "Name :", "Name:",
-			"Name", "name" };
+	/**********************************************************************************************************************************/
 
 	public static Set<String> getNamemislead() {
 		return nameMislead;
 	}
 
-	static final String path = "F:\\MailDownloader\\";
-	static final String Logspath = "E:\\ResumeLogs\\";
+	/**********************************************************************************************************************************/
 
 	public static Set<String> getAllnames() {
 
 		return names;
 	}
 
+	/**********************************************************************************************************************************/
+
 	public static String getPath() {
 		return "F:\\MailDownloader\\";
-		// TODO Auto-generated method stub
 
 	}
+
+	/**********************************************************************************************************************************/
 
 	public static String[] getverbSet() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
+
+	/**********************************************************************************************************************************/
 
 	public static String[] getAddressvset() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**********************************************************************************************************************************/
+
+	public static Set<String> getPlaces() {
+		if(places==null)
+		{
+			loadplaces();
+		}else
+		{
+			return places;
+		}
+		return places;
+	}
+	/**********************************************************************************************************************************/
 
 }
