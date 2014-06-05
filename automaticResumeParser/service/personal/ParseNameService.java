@@ -1,6 +1,7 @@
 package automaticResumeParser.service.personal;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -19,11 +20,11 @@ public class ParseNameService {
 	 ************************************************************************************************************************/
 	public ResumeSaveEntity parseName(List<String> list,
 			ResumeSaveEntity resumeSaveEntity) throws ParserException {
-		System.out.println(System.getProperty("user.dir"));
-	//	Set<String> allNames = ParserConstants.getAllnames();
+		// System.out.println(System.getProperty("user.dir"));
+		// Set<String> allNames = ParserConstants.getAllnames();
 		Set<Integer> misLeadWordsSet = misleadWordsPosition(list);
 		// HashMap<String, Integer> nameMap1 = nameRegexIdentifier(list);
-		HashMap<String, Integer> nameMap = nameSurnameIdentifier(list);
+		HashMap<String, Integer> nameMap = nameIdentifier(list);
 		// nameMap.putAll(nameMap1);
 		Set<String> nameSet = nameMap.keySet();
 		// nameSet.retainAll(allNames); // intersection of two sets
@@ -42,13 +43,39 @@ public class ParseNameService {
 				}
 			}
 		}
-		// Reject the names which comes under the misleading words------- End //
+		// Reject the names which comes under the misleading words------- End //		
 
-		System.out.println(nameSet);
+		// Detect on basis of sorenson coefficient Start //
+
+		nameSet = nameMap.keySet();
+		nameIterator = nameSet.iterator();
+		String name = ""; // This will contain the final name having highest
+							// sorenson coefficient value
+		Double maxSorensonVal = -1.0D; // This will contain the final name
+										// having highest sorenson coefficient
+										// value
+		String emailId = resumeSaveEntity.getEmailId();
+		System.out.println("emailId " + emailId);
+		// here we will find the value with highes sorenson coeff and then set
+		// it into name
+		while (nameIterator.hasNext()) {
+			String val = nameIterator.next();
+
+			double sorensonCoef = Utilities.getSorensonCoefficient(val,
+					emailId.substring(0, emailId.indexOf("@")));
+
+			if (sorensonCoef > maxSorensonVal) {
+				maxSorensonVal = sorensonCoef;
+				name = val;
+			}
+		}
+		// Detect on basis of sorenson coefficient End //
+
+		System.out.println("name is " + name);
 		return resumeSaveEntity;
 	}
 
-
+	
 
 	/**************************************************************************************************************************/
 
@@ -80,23 +107,24 @@ public class ParseNameService {
 	/**
 	 * @throws ParserException
 	 * @throws IOException
+	 *             This method use composite algorithm to find the name 1) It
+	 *             uses regex 2) it uses the English Word removal 3) it uses
+	 *             place removal technique
 	 ************************************************************************************************************************/
 
-	private HashMap<String, Integer> nameSurnameIdentifier(List<String> list)
+	private HashMap<String, Integer> nameIdentifier(List<String> list)
 			throws ParserException {
 
 		HashMap<String, Integer> nameMap = new HashMap<String, Integer>();
 		HashSet<String> surnameSet = ParserConstants.getSurnames();
 		for (int i = 0; i < list.size(); i++) {
 			String val = list.get(i);
-			String name = "";			
+			String name = "";
 			if (val.trim().length() > 0 && surnameSet.contains(val)
-					|| surnameSet.contains(Utilities.properCase(val))
-					|| surnameSet.contains(val.toUpperCase())
-					|| surnameSet.contains(val.toLowerCase())) {
+					|| surnameSet.contains(Utilities.properCase(val))) {
 				int j = i;
 				while (val.matches("[A-Za-z]+") && j >= 0
-						&& !(isEnglishWord(val))&&!(isAPlace(val))) {
+						&& !(isEnglishWord(val)) && !(isAPlace(val))) {
 
 					{
 						name = val + " " + name; // To maintain the space
@@ -107,7 +135,25 @@ public class ParseNameService {
 						}
 					}
 				}
-				nameMap.put(name.trim(), j);
+				// The length should be greater than zero and name should not be
+				// already present like Anil and Anil kumar
+				String trimmedName = name.trim();
+				if (trimmedName.length() > 0) {
+					Iterator<String> iterTemp = nameMap.keySet().iterator();
+					while (iterTemp.hasNext()) {
+						String mapVal = iterTemp.next();
+						if (trimmedName.length()>mapVal.length()  && trimmedName.contains(mapVal)) 
+						{ 
+							iterTemp.remove();								
+							
+						}else if(mapVal.length()>trimmedName.length() && mapVal.contains(trimmedName))
+						{
+							trimmedName=mapVal;   //Now new value can not be added because mapVal is already added val
+						}
+					}
+					nameMap.put(trimmedName, j);
+				//	System.out.println(nameMap.keySet());
+				}
 			}
 
 		}
@@ -121,10 +167,8 @@ public class ParseNameService {
 
 	private boolean isAPlace(String val) {
 		Set<String> placeSet = ParserConstants.getPlaces();// Utilities.places();
-		return placeSet.contains(val.toUpperCase());
+		return placeSet.contains(val);
 	}
-
-
 
 	/**
 	 * @throws ParserException
@@ -132,10 +176,10 @@ public class ParseNameService {
 	 **********************************************************************************************************************************/
 
 	private boolean isEnglishWord(String val) throws ParserException {
-		
-			Set<String> wordSet = ParserConstants.getEnglishWords();// Utilities.englishWords();
-			return wordSet.contains(val.toUpperCase());
-		
+
+		Set<String> wordSet = ParserConstants.getEnglishWords();// Utilities.englishWords();
+		return wordSet.contains(val);
+
 	}
 
 	/************************************************************************************************************************************/
