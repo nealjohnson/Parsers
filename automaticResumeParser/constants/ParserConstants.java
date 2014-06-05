@@ -15,7 +15,7 @@ public class ParserConstants {
 	public static HashSet<String> surnames;
 	public static HashSet<String> names;
 	private static HashSet<String> englishWords;
-	public static HashSet<String> nameMislead = new HashSet<>();
+	public static HashSet<String> nameMislead = new HashSet<String>();
 	private static HashSet<String> places;
 	static final String[] EmailVset = { "Email Address", "Email Id",
 			"email Id", "E-mail", "e-mail", "email", "Email", "Mail" };
@@ -68,7 +68,7 @@ public class ParserConstants {
 
 	public static HashSet<String> loadSurnames() {
 		try {
-			surnames = new HashSet<>();
+			surnames = new HashSet<String>();
 			BufferedReader bf = new BufferedReader((new FileReader(new File(
 					System.getProperty("user.dir")
 							+ "\\property files\\SortedSurnames.prs"))));
