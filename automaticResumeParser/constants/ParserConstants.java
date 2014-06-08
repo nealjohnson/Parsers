@@ -76,7 +76,7 @@ public class ParserConstants {
 			surnames = new HashSet<>();
 			BufferedReader bf = new BufferedReader((new FileReader(new File(
 					System.getProperty("user.dir")
-							+ "\\property files\\SortedSurnames.prs"))));
+							+ "\\property-files\\SortedSurnames.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				line = bf.readLine();
@@ -101,7 +101,7 @@ public class ParserConstants {
 			names = new HashSet<String>();
 			BufferedReader bf = new BufferedReader((new FileReader(new File(
 					System.getProperty("user.dir")
-							+ "\\property files\\SortedNamescomposite.prs"))));
+							+ "\\property-files\\SortedNamescomposite.prs"))));
 			String line = bf.readLine();
 			while (line != null) {
 				names.add(line);
@@ -124,7 +124,7 @@ public class ParserConstants {
 			englishWords = new HashSet<String>();
 			BufferedReader bf = new BufferedReader(new FileReader(new File(
 					System.getProperty("user.dir")
-							+ "\\property files\\words.prs")));
+							+ "\\property-files\\words.prs")));
 			String line = bf.readLine();
 			while (line != null) {
 				if (line.trim().length() != 0) {
@@ -151,7 +151,7 @@ public class ParserConstants {
 			places = new HashSet<String>();
 			BufferedReader bf = new BufferedReader(new FileReader(new File(
 					System.getProperty("user.dir")
-							+ "\\property files\\Places.prs")));
+							+ "\\property-files\\Places.prs")));
 			String line = bf.readLine();
 			while (line != null) {
 				if (line.trim().length() != 0) {
