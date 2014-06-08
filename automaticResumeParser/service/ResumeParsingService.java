@@ -41,7 +41,7 @@ public class ResumeParsingService {
 		extension = Utilities.FindExtension(resumeName);
 		System.out.println(resumeName);
 
-		ResumeSaveEntity resumeSaveEntity;
+		ResumeSaveEntity resumeSaveEntity=new ResumeSaveEntity();
 		if (extension.equalsIgnoreCase("doc")) {
 			try {
 				resumeSaveEntity = parseDocResume(resumeName);
