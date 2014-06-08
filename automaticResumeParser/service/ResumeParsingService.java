@@ -35,7 +35,7 @@ public class ResumeParsingService {
 	 * @throws InvalidFormatException
 	 ***************************************************************************************************************/
 
-	public String parseResumes(String resumeName) {
+	public ResumeSaveEntity parseResumes(String resumeName) {
 		String extension = null;
 
 		extension = Utilities.FindExtension(resumeName);
@@ -67,7 +67,7 @@ public class ResumeParsingService {
 			}
 
 		}
-		return resumeName;
+		return resumeSaveEntity;
 
 	}
 
