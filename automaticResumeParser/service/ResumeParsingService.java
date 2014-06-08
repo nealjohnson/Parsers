@@ -158,9 +158,16 @@ public class ResumeParsingService {
 		ResumeSaveEntity resumeSaveEntity = new ResumeSaveEntity();
 		while (scanner.hasNextLine()) {
 			String data = scanner.nextLine();
+			data=data.toUpperCase();
+			data = data.replaceAll(":", " ");
+			data = data.replaceAll(";", " ");
+			data = data.replaceAll(",", " ");
 			data = data.replaceAll("\\s+", " ");
-			String[] words = data.split(" ");
+			
+			String[] words = data.split(" ");			
+			
 			wordsList.addAll(Arrays.asList(words));
+	
 		}
 		resumeSaveEntity = fieldsService.parseFields(resumeSaveEntity,
 				wordsList);
