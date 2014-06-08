@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 
+import automaticResumeParser.constants.ParserConstants;
+
 public class Utilities {
 
 	/************************************************************************************************************************************/
@@ -141,7 +143,7 @@ public class Utilities {
 		pw.print(" ] ");
 		pw.print(exception.getMessage());
 		exception.printStackTrace(pw);
-		File file = new File("E:\\" + "Log.txt");
+		File file = new File(ParserConstants.getLogspath()+"Log.txt");
 		String date = getSysDate();
 		try {
 			if (file.exists()) {
