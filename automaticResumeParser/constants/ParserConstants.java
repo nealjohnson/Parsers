@@ -17,6 +17,7 @@ public class ParserConstants {
 	private static HashSet<String> englishWords;
 	public static HashSet<String> nameMislead = new HashSet<String>();
 	private static HashSet<String> places;
+	
 	static final String[] EmailVset = { "Email Address", "Email Id",
 			"email Id", "E-mail", "e-mail", "email", "Email", "Mail" };
 	static final String[] NameVset = { "Name-", "Name:-", "Name :", "Name:",
@@ -26,8 +27,12 @@ public class ParserConstants {
 			"12th", "10th", "Vidyalaya", "university", "University", "Board",
 			"S.S.C", "H.S.C", "CBSE" };
 
-	static final String path = "F:\\MailDownloader\\";
-	static final String Logspath = "E:\\ResumeLogs\\";
+	public static String path;
+	public static  String Logspath;
+
+	
+
+	
 
 	final String[] CompaniesKeyWordsSet = { "Inc.", "Limited",
 			"Administrator ", "Intern ", "Internship", "Consultancy Services",
@@ -68,7 +73,7 @@ public class ParserConstants {
 
 	public static HashSet<String> loadSurnames() {
 		try {
-			surnames = new HashSet<String>();
+			surnames = new HashSet<>();
 			BufferedReader bf = new BufferedReader((new FileReader(new File(
 					System.getProperty("user.dir")
 							+ "\\property files\\SortedSurnames.prs"))));
@@ -211,10 +216,28 @@ public class ParserConstants {
 	/**********************************************************************************************************************************/
 
 	public static String getPath() {
-		return "F:\\MailDownloader\\";
+		return path;
 
 	}
+	/**********************************************************************************************************************************/
 
+	public static void setPath(String mypath) {
+		path=mypath;
+
+	}
+	/**********************************************************************************************************************************/
+
+	
+	public static void setLogspath(String logspath) {
+		Logspath = logspath;
+	}
+	
+	/**********************************************************************************************************************************/
+
+	public static String getLogspath() {
+		return Logspath;
+	}
+	
 	/**********************************************************************************************************************************/
 
 	public static String[] getverbSet() {
