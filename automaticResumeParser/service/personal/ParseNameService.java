@@ -1,7 +1,6 @@
 package automaticResumeParser.service.personal;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,7 +9,6 @@ import java.util.Set;
 
 import automaticResumeParser.constants.ParserConstants;
 import automaticResumeParser.entity.ResumeSaveEntity;
-import automaticResumeParser.execption.ParserException;
 import automaticResumeParser.utilities.Utilities;
 
 public class ParseNameService {
@@ -19,7 +17,7 @@ public class ParseNameService {
 	 * @throws ParserException
 	 ************************************************************************************************************************/
 	public ResumeSaveEntity parseName(List<String> list,
-			ResumeSaveEntity resumeSaveEntity) throws ParserException {
+			ResumeSaveEntity resumeSaveEntity){
 		// System.out.println(System.getProperty("user.dir"));
 		// Set<String> allNames = ParserConstants.getAllnames();
 		Set<Integer> misLeadWordsSet = misleadWordsPosition(list);
@@ -113,7 +111,7 @@ public class ParseNameService {
 	 ************************************************************************************************************************/
 
 	private HashMap<String, Integer> nameIdentifier(List<String> list)
-			throws ParserException {
+			 {
 
 		HashMap<String, Integer> nameMap = new HashMap<String, Integer>();
 		HashSet<String> surnameSet = ParserConstants.getSurnames();
@@ -175,7 +173,7 @@ public class ParseNameService {
 	 * @throws IOException
 	 **********************************************************************************************************************************/
 
-	private boolean isEnglishWord(String val) throws ParserException {
+	private boolean isEnglishWord(String val) {
 
 		Set<String> wordSet = ParserConstants.getEnglishWords();// Utilities.englishWords();
 		return wordSet.contains(val);
