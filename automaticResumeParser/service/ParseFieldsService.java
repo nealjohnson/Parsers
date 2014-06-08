@@ -1,14 +1,13 @@
 package automaticResumeParser.service;
 
 import java.util.List;
+
 import automaticResumeParser.entity.ResumeSaveEntity;
-import automaticResumeParser.execption.ParserException;
-import automaticResumeParser.service.fields.ParseProfessionalSkillsService;
 public class ParseFieldsService {
 
 	public ResumeSaveEntity parseFields(ResumeSaveEntity resumeSaveEntity,
 			
-			List<String> wordsList) throws ParserException {
+			List<String> wordsList) {
 		
 		//########################## PERSONAL DETAILS ############################################		
 		ParsePersonalDetailsService personalDetailsService = new ParsePersonalDetailsService();
