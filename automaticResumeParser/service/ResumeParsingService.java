@@ -24,7 +24,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import automaticResumeParser.constants.ParserConstants;
 import automaticResumeParser.entity.ResumeSaveEntity;
-import automaticResumeParser.execption.ParserException;
 import automaticResumeParser.utilities.Utilities;
 
 public class ResumeParsingService {
@@ -75,11 +74,11 @@ public class ResumeParsingService {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 * @throws InvalidFormatException
-	 * @throws ParserException
+	 * 
 	 ******************************************************************************************************************************************/
 
 	private ResumeSaveEntity parseDOCXResume(String resumeName)
-			throws IOException, InvalidFormatException, ParserException {
+			throws IOException, InvalidFormatException {
 
 		ResumeSaveEntity resumeSaveEntity;
 		File file = new File(ParserConstants.getPath() + resumeName);
@@ -103,11 +102,11 @@ public class ResumeParsingService {
 	/**
 	 * @throws IOException
 	 * @throws FileNotFoundException
-	 * @throws ParserException
+	 
 	 ******************************************************************************************************************************************/
 
 	private ResumeSaveEntity parsePDFResume(String resumeName)
-			throws FileNotFoundException, IOException, ParserException {
+			throws FileNotFoundException, IOException {
 		ResumeSaveEntity resumeSaveEntity;
 		PDFParser parser;
 		PDFTextStripper pdfStripper;
@@ -128,10 +127,9 @@ public class ResumeParsingService {
 	/**
 	 * @throws IOException
 	 * @throws FileNotFoundException
-	 * @throws ParserException
 	 ***************************************************************************************************************/
 	private ResumeSaveEntity parseDocResume(String resumeName)
-			throws FileNotFoundException, IOException, ParserException {
+			throws FileNotFoundException, IOException {
 
 		ResumeSaveEntity resumeSaveEntity;
 
@@ -149,10 +147,9 @@ public class ResumeParsingService {
 	}
 
 	/**
-	 * @throws ParserException
 	 *********************************************************************************************************************/
 
-	ResumeSaveEntity parseResumeScanner(Scanner scanner) throws ParserException {
+	ResumeSaveEntity parseResumeScanner(Scanner scanner) {
 		ParseFieldsService fieldsService = new ParseFieldsService();
 		List<String> wordsList = new ArrayList<String>();
 		ResumeSaveEntity resumeSaveEntity = new ResumeSaveEntity();
